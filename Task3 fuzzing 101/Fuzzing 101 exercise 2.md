@@ -1,5 +1,7 @@
 # Fuzzing 101 exercise 2
 
+注：本实验后来换成ubuntu环境做了，所以前后截图有所差异
+
 ### 下载并构建目标
 
 本此测试的对象libexif库是一个用来读取数码相机照片中包含的exif信息的C语言库。首先下载libexif库并进行解压和安装：
@@ -85,10 +87,21 @@ rm -r $HOME/fuzzing_libexif/install
 cd $HOME/fuzzing_libexif/libexif-libexif-0_6_14-release/
 make clean
 export LLVM_CONFIG="llvm-config-11"
-CC=afl-clang-lto ./configure --enable-shared=no --prefix="$HOME/fuzzing_libexif/install/"
+CC=afl-clang-lto ./configure --enable-shared=no -- prefix="$HOME/fuzzing_libexif/install/"
+```
+
+![image-20230715110135394](E:/typora_pictures/image-20230715110135394.png)
+
+可以看到此时编译器已经是afl-clang-lto了
+
+```
 make
 make install
 ```
+
+
+
+接下来对exif操作：
 
 ```
 cd $HOME/fuzzing_libexif/exif-exif-0_6_15-release
@@ -96,13 +109,14 @@ make clean
 export LLVM_CONFIG="llvm-config-11"
 CC=afl-clang-lto 
 ./configure --enable-shared=no --prefix="$HOME/fuzzing_libexif/install/" PKG_CONFIG_PATH=$HOME/fuzzing_libexif/install/lib/pkgconfig
+```
+
+![image-20230715110450319](E:/typora_pictures/image-20230715110450319.png)
+
+```
 make
 make install
 ```
-
-不要忘了对libexif和exif分别操作一下（这里建议CC这句和后面./configure不要一起，我这边一一起就错误，分开两次执行就好了）
-
-
 
 这里使用afl-clang-lto而不是afl-clang-fast，因为它是一种无碰撞的仪器而且比afl-clang-fast更快。
 
@@ -116,6 +130,8 @@ make install
 afl-fuzz -i $HOME/fuzzing_libexif/exif-samples-master/jpg/ -o $HOME/fuzzing_libexif/out/ -s 123 -- $HOME/fuzzing_libexif/install/bin/exif @@
 ```
 
+![image-20230715111531692](E:/typora_pictures/image-20230715111531692.png)
+
 
 
 ### 使用Eclipse-CDT 进行调试
@@ -126,12 +142,22 @@ afl-fuzz -i $HOME/fuzzing_libexif/exif-samples-master/jpg/ -o $HOME/fuzzing_libe
 sudo apt install default-jdk
 ```
 
+下载Eclipse-CDT： https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2021-03/R/eclipse-cpp-2021-03-R-linux-gtk-x86_64.tar.gz
+
 然后用已下命令提取：
 
 ```
 tar -xzvf eclipse-cpp-2021-03-R-linux-gtk-x86_64.tar.gz
 ```
 
+之后打开Eclipse-CDT，选择File -> Import -> C/C++ -> "Existing code as makefile project"。然后选择"Linux GCC" 并添加Exif的路径:
+
+![image-20230715141713934](E:/typora_pictures/image-20230715141713934.png)
+
+之后设置debug参数开始debug，当出现错误后停止：
+
+![image-20230715143848397](E:/typora_pictures/image-20230715143848397.png)
 
 
-...未完
+
+本此实验更加加深了自己对AFL++的理解和使用，用其对程序进行插桩编译的过程更加熟练，希望自己在接下来的实验中对Fuzz能有更好的理解。
