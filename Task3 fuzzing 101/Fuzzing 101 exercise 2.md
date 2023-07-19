@@ -54,7 +54,7 @@ make install
 
 测试exif是否能够正常工作：
 
-![image-20230709093744846](E:/typora_pictures/image-20230709093744846.png)
+![image-20230709093744846](https://github.com/wammr/smrlearning/blob/master/picture/image-20230709093744846.png)
 
 
 
@@ -74,7 +74,7 @@ unzip master.zip
 $HOME/fuzzing_libexif/install/bin/exif $HOME/fuzzing_libexif/exif-samples-master/jpg/Canon_40D_photoshop_import.jpg
 ```
 
-![image-20230709095909286](E:/typora_pictures/image-20230709095909286.png)
+![image-20230709095909286](https://github.com/wammr/smrlearning/blob/master/picture/image-20230709095909286.png)
 
 
 
@@ -90,7 +90,7 @@ export LLVM_CONFIG="llvm-config-11"
 CC=afl-clang-lto ./configure --enable-shared=no -- prefix="$HOME/fuzzing_libexif/install/"
 ```
 
-![image-20230715110135394](E:/typora_pictures/image-20230715110135394.png)
+![image-20230715110135394](https://github.com/wammr/smrlearning/blob/master/picture/image-20230715110135394.png)
 
 可以看到此时编译器已经是afl-clang-lto了
 
@@ -111,7 +111,7 @@ CC=afl-clang-lto
 ./configure --enable-shared=no --prefix="$HOME/fuzzing_libexif/install/" PKG_CONFIG_PATH=$HOME/fuzzing_libexif/install/lib/pkgconfig
 ```
 
-![image-20230715110450319](E:/typora_pictures/image-20230715110450319.png)
+![image-20230715110450319](https://github.com/wammr/smrlearning/blob/master/picture/image-20230715110450319.png)
 
 ```
 make
@@ -130,7 +130,7 @@ make install
 afl-fuzz -i $HOME/fuzzing_libexif/exif-samples-master/jpg/ -o $HOME/fuzzing_libexif/out/ -s 123 -- $HOME/fuzzing_libexif/install/bin/exif @@
 ```
 
-![image-20230715111531692](E:/typora_pictures/image-20230715111531692.png)
+![image-20230715111531692](https://github.com/wammr/smrlearning/blob/master/picture/image-20230715111531692.png)
 
 
 
@@ -152,11 +152,11 @@ tar -xzvf eclipse-cpp-2021-03-R-linux-gtk-x86_64.tar.gz
 
 之后打开Eclipse-CDT，选择File -> Import -> C/C++ -> "Existing code as makefile project"。然后选择"Linux GCC" 并添加Exif的路径:
 
-![image-20230715141713934](E:/typora_pictures/image-20230715141713934.png)
+![image-20230715141713934](https://github.com/wammr/smrlearning/blob/master/picture/image-20230715141713934.png)
 
 之后设置debug参数开始debug，当出现错误后停止：
 
-![image-20230715143848397](E:/typora_pictures/image-20230715143848397.png)
+![image-20230715143848397](https://github.com/wammr/smrlearning/blob/master/picture/image-20230715143848397.png)
 
 
 
