@@ -33,7 +33,7 @@ make install
 
 输出为：
 
-![image-20230717150204742](E:/typora_pictures/image-20230717150204742.png)
+![image-20230717150204742](https://github.com/wammr/smrlearning/blob/master/picture/image-20230717150204742.png)
 
 
 
@@ -79,9 +79,9 @@ afl-fuzz -m none -i ./afl_in -o afl_out -s 234 -S slave1 -- ./xmllint --memory -
 
 非常非常非常长的时间以后，终于可以看到崩溃...：
 
-![image-20230719161315906](E:/typora_pictures/image-20230719161315906.png)
+![image-20230719161315906](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719161315906.png)
 
-![image-20230719161321754](E:/typora_pictures/image-20230719161321754.png)
+![image-20230719161321754](https://github.com/wammr/smrlearning/blob/master/picture/image-20230719161321754.png)
 
 
 
