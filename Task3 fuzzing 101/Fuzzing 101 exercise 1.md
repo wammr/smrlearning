@@ -19,19 +19,19 @@ AFL（American Fuzzy Lop）是一种基于模糊测试（fuzz testing）的软�
 
 首先创建一个新目录fuzzing_xpdf
 
-![image-20230708100403778](E:\typora_pictures\image-20230708100403778.png)
+![image-20230708100403778](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708100403778.png)
 
 
 
 安装一些必备工具（make gcc等），我这里build-essential已经是最新版本了
 
-![image-20230708100533610](E:\typora_pictures\image-20230708100533610.png)
+![image-20230708100533610](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708100533610.png)
 
 
 
 下载Xpdf 3.02并解压缩
 
-![image-20230708100945820](E:\typora_pictures\image-20230708100945820.png)
+![image-20230708100945820](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708100945820.png)
 
 
 
@@ -45,13 +45,13 @@ make
 make install
 ```
 
-![image-20230708102205715](E:\typora_pictures\image-20230708102205715.png)
+![image-20230708102205715](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708102205715.png)
 
 
 
 测试一下xpdf的功能，首先先下载一些用到的PDF示例，将PDF示例放在fuzzing_xpdf中的pdf_examples中：
 
-![image-20230708102634245](E:\typora_pictures\image-20230708102634245.png)
+![image-20230708102634245](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708102634245.png)
 
 
 
@@ -61,7 +61,7 @@ make install
 $HOME/fuzzing_xpdf/install/bin/pdfinfo -box -meta $HOME/fuzzing_xpdf/pdf_examples/helloworld.pdf
 ```
 
-![image-20230708102822790](E:\typora_pictures\image-20230708102822790.png)
+![image-20230708102822790](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708102822790.png)
 
 
 
@@ -69,7 +69,7 @@ $HOME/fuzzing_xpdf/install/bin/pdfinfo -box -meta $HOME/fuzzing_xpdf/pdf_example
 
 由于教程中给的两种安装方法目前都没法用，所以我就选择直接sudo apt install AFL++了。输入afl-fuzz可以看到安装成功
 
-![image-20230708104232006](E:\typora_pictures\image-20230708104232006.png)
+![image-20230708104232006](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708104232006.png)
 
 
 
@@ -85,7 +85,7 @@ make clean #刚才在这构建的xpdf，这条命令是清理构建过程中生�
 
 接下来使用afl-clang-fast编译器来构建xpdf，不过需要注意的是，和教程不同，要把CC和CXX改成我自己的路径，如果不知道在哪可以用which搜索一下
 
-![image-20230708105610478](E:\typora_pictures\image-20230708105610478.png)
+![image-20230708105610478](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708105610478.png)
 
 ./configure的设置和一开始构建xpdf的时候是一样的（相当于让afl参与重新构建的过程）
 
@@ -116,13 +116,13 @@ $HOME/fuzzing_xpdf/install/bin/pdftotext <input-file-name> $HOME/fuzzing_xpdf/ou
 
 几分钟之后可以看到出现崩溃：
 
-![image-20230708110315562](E:\typora_pictures\image-20230708110315562.png)
+![image-20230708110315562](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708110315562.png)
 
 
 
 接下来在目录中找到与崩溃相对应的文件：
 
-![image-20230708110831236](E:/typora_pictures/image-20230708110831236.png)
+![image-20230708110831236](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708110831236.png)
 
 将这个文件作为输入传递给pdftotext，来重现crash
 
@@ -131,7 +131,7 @@ $HOME/fuzzing_xpdf/install/bin/pdftotext <input-file-name> $HOME/fuzzing_xpdf/ou
 install/bin/pdftotext out/default/crashes/id:000000,sig:11,src:000877,time:97675,execs:77278,op:havoc,rep:8 output
 ```
 
-![image-20230708111733760](E:/typora_pictures/image-20230708111733760.png)
+![image-20230708111733760](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708111733760.png)
 
 可以看到分段错误导致程序崩溃
 
@@ -156,19 +156,19 @@ make install
 
 开始运行GDB
 
-![image-20230708145042608](E:/typora_pictures/image-20230708145042608.png)
+![image-20230708145042608](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708145042608.png)
 
 
 
 键入run，看到下面输出：
 
-![image-20230708145124210](E:/typora_pictures/image-20230708145124210.png)
+![image-20230708145124210](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708145124210.png)
 
 
 
 键入bt获取回溯
 
-![image-20230708145543517](E:/typora_pictures/image-20230708145543517.png)
+![image-20230708145543517](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708145543517.png)
 
 可以看到许多“Parser::getObj”方法的调用，查看CVE-2019-13288可以知道：在 Xpdf 4.01.01 中，Parser.cc 中的 Parser：：getObj（） 函数可能会通过构建的文件导致无限递归。远程攻击者可利用此漏洞进行 DoS 攻击。
 
@@ -176,7 +176,7 @@ make install
 
 查看xpdf4.02的源码可以看到限制了递归的最大次数从而修改了这个漏洞
 
-![image-20230708155318056](E:/typora_pictures/image-20230708155318056.png)
+![image-20230708155318056](https://github.com/wammr/smrlearning/blob/master/picture/image-20230708155318056.png)
 
 
 
