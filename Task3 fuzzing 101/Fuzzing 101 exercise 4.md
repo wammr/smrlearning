@@ -33,7 +33,7 @@ $HOME/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w $HOME/fuzzing_tiff/tif
 
 发现tiffinfo可以正常工作：
 
-![image-20230716100643388](E:/typora_pictures/image-20230716100643388.png)
+![image-20230716100643388](https://github.com/wammr/smrlearning/blob/master/picture/image-20230716100643388.png)
 
 ### 代码覆盖率
 
@@ -96,7 +96,7 @@ genhtml --highlight --legend -output-directory ./html-coverage/ ./app2.info
 
 在该文件夹中创建代码覆盖率报告，打开文件`./html-coverage/index.html`  ，看到如下所示的内容：
 
-![image-20230716105059464](E:/typora_pictures/image-20230716105059464.png)
+![image-20230716105059464](https://github.com/wammr/smrlearning/blob/master/picture/image-20230716105059464.png)
 
 ### 模糊测试
 
@@ -127,7 +127,7 @@ afl-fuzz -m none -i $HOME/fuzzing_tiff/tiff-4.0.4/test/images/ -o $HOME/fuzzing_
 
 看到结果，这次时间非常迅速：
 
-![image-20230717084245382](E:/typora_pictures/image-20230717084245382.png)
+![image-20230717084245382](https://github.com/wammr/smrlearning/blob/master/picture/image-20230717084245382.png)
 
 ### ASan跟踪
 
@@ -137,7 +137,7 @@ afl-fuzz -m none -i $HOME/fuzzing_tiff/tiff-4.0.4/test/images/ -o $HOME/fuzzing_
 $HOME/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w '/home/fuzz/fuzzing_tiff/out/default/crashes/id:000000,sig:06,src:000000,time:1287,execs:1016,op:havoc,rep:1'
 ```
 
-![image-20230717084601733](E:/typora_pictures/image-20230717084601733.png)
+![image-20230717084601733](https://github.com/wammr/smrlearning/blob/master/picture/image-20230717084601733.png)
 
 ### 代码覆盖率测量
 
@@ -169,6 +169,6 @@ lcov --no-checksum --directory ./ --capture --output-file app2.info
 
 结果如下：
 
-![image-20230717091512980](E:/typora_pictures/image-20230717091512980.png)
+![image-20230717091512980](https://github.com/wammr/smrlearning/blob/master/picture/image-20230717091512980.png)
 
 本次实验引入了一个新的概念代码覆盖率，通过使用代码覆盖率，可以了解模糊器到达了代码的哪些部分，并可视化模糊处理过程。完成本练习后，对如何使用LCOV测量代码覆盖率有了一定的了解，在今后的学习过程中也可以通过使用该工具来可视化模糊处理。
