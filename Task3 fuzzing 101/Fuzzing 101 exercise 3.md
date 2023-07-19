@@ -66,7 +66,7 @@ $HOME/fuzzing_tcpdump/install/sbin/tcpdump -h
 
 能够看到以下输出：
 
-![image-20230715150153509](E:/typora_pictures/image-20230715150153509.png)
+![image-20230715150153509](https://github.com/wammr/smrlearning/blob/master/picture/image-20230715150153509.png)
 
 
 
@@ -86,7 +86,7 @@ $HOME/fuzzing_tcpdump/install/sbin/tcpdump -vvvvXX -ee -nn -r ./tests/geneve.pca
 
 输出应如下所示：
 
-![image-20230715150403380](E:/typora_pictures/image-20230715150403380.png)
+![image-20230715150403380](https://github.com/wammr/smrlearning/blob/master/picture/image-20230715150403380.png)
 
 
 
@@ -139,7 +139,7 @@ afl-fuzz -m none -i $HOME/fuzzing_tcpdump/tcpdump-tcpdump-4.9.2/tests/ -o $HOME/
 
 一段时间后，出现多次崩溃：
 
-![image-20230715211944641](E:/typora_pictures/image-20230715211944641.png)
+![image-20230715211944641](https://github.com/wammr/smrlearning/blob/master/picture/image-20230715211944641.png)
 
 
 
@@ -155,7 +155,7 @@ $HOME/fuzzing_tcpdump/install/sbin/tcpdump -vvvvXX -ee -nn -r '/home/fuzz/fuzzin
 
 获得崩溃的良好摘要，包括执行跟踪：
 
-![image-20230715215336460](E:/typora_pictures/image-20230715215336460.png)
+![image-20230715215336460](https://github.com/wammr/smrlearning/blob/master/picture/image-20230715215336460.png)
 
 发现有堆溢出heap-buffer-overflow
 
